@@ -1,6 +1,6 @@
 # shop_app
 
-A new Flutter project.
+flutter shop app with fonctionality. open source
 
 ## Getting Started
 

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'YoYo store',
         theme: ThemeData(
-          primarySwatch: Colors.indigo,
+          primarySwatch: Colors.red,
           accentColor: Colors.deepOrange,
           fontFamily: 'Lato'
         ),

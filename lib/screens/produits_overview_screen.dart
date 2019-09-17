@@ -26,7 +26,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(237, 29, 36, 1),
-        leading: Icon(Icons.restaurant),
+        // leading: Icon(Icons.restaurant),
         title: Text('YoYo fastFood'),
         actions: <Widget>[
           PopupMenuButton( 
