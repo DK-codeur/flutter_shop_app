@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/products_provider.dart';
 import '../widgets/app_drawer.dart';
 import './cart_screen.dart';
 import '../providers/cart.dart';
@@ -17,6 +18,35 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   var _showFavoritesOnly = false;
+  var _isInit = true;
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    //Provider.of<ProductsProvider>(context).fetchAndSetProduct(); !!!!
+    // Future.delayed(Duration.zero).then((_) {
+    //   Provider.of<ProductsProvider>(context).fetchAndSetProduct();
+    // });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true; 
+      });
+
+      Provider.of<ProductsProvider>(context).fetchAndSetProduct().then((_) {
+        setState(() {
+          _isLoading = false; 
+        });
+      });
+    }
+
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +57,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(237, 29, 36, 1),
         // leading: Icon(Icons.restaurant),
-        title: Text('YoYo fastFood'),
+        title: Text('YoYo store'),
         actions: <Widget>[
           PopupMenuButton( 
             onSelected: (FilterOptions selectedValue) {
@@ -63,7 +93,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: ProductsGrid(_showFavoritesOnly),
+      body: (_isLoading) 
+        ? Center(child:  CircularProgressIndicator()) 
+        : ProductsGrid(_showFavoritesOnly),
     );
   }
 }
